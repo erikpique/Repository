@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="$(Dapper)" />
+    <PackageReference Include="System.Data.SqlClient" Version="$(SystemDataSqlClient)" />
+    <PackageReference Include="DapperExtensions.DotnetCore" Version="$(DapperExtensionsDotnetCore)" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Repository.Abstraction\Infrastructure.Repository.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>

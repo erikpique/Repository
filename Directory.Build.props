@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="build/dependencies.props" />
+  
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <EnableSourceLink>false</EnableSourceLink>
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
+  </PropertyGroup>
+  
+</Project>

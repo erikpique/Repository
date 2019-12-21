@@ -1,0 +1,33 @@
+<Project>
+  <PropertyGroup Label="SDK Versions">
+    <NetStandardTargetVersion>netstandard2.0</NetStandardTargetVersion>
+    <NetCoreTargetVersion>netcoreapp2.1</NetCoreTargetVersion>
+    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package Versions">
+    <MicrosoftAzureFunctionsExtensions>1.0.0</MicrosoftAzureFunctionsExtensions>
+    <MicrosoftAzureWebJobsExtensionsStorage>3.0.0</MicrosoftAzureWebJobsExtensionsStorage>
+    <MicrosoftAzureWebJobsScriptExtensionsMetadataGenerator>1.1.3</MicrosoftAzureWebJobsScriptExtensionsMetadataGenerator>
+    <MicrosoftEntityFrameworkCoreSqlServer>3.1.0</MicrosoftEntityFrameworkCoreSqlServer>
+    <MicrosoftNETSdkFunctions>3.0.1</MicrosoftNETSdkFunctions>
+    <MicrosoftEntityFrameworkCoreRelational>3.1.0</MicrosoftEntityFrameworkCoreRelational>
+    <SerilogExtensionsLogging>3.0.1</SerilogExtensionsLogging>
+    <AutofacExtensionsDependencyInjection>4.0.0</AutofacExtensionsDependencyInjection>
+    <AzureFunctionsAutofac>3.0.7</AzureFunctionsAutofac>
+    <Serilog>2.9.0</Serilog>
+    <SerilogSinksConsole>3.1.1</SerilogSinksConsole>
+    <SerilogSinksApplicationInsights>3.0.4</SerilogSinksApplicationInsights>
+    <Dapper>2.0.30</Dapper>
+    <DapperExtensionsDotnetCore>1.0.1</DapperExtensionsDotnetCore>
+    <SystemDataSqlClient>4.8.0</SystemDataSqlClient>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package Test Versions">
+    <MicrosoftEntityFrameworkCoreInMemory>3.1.0</MicrosoftEntityFrameworkCoreInMemory>
+    <Moq>4.13.1</Moq>
+    <nunit>3.12.0</nunit>
+    <NUnit3TestAdapter>3.15.1</NUnit3TestAdapter>
+    <MicrosoftNETTestSdk>16.2.0</MicrosoftNETTestSdk>
+  </PropertyGroup>
+</Project>
