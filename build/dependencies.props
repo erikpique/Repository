@@ -1,8 +1,7 @@
 <Project>
   <PropertyGroup Label="SDK Versions">
-    <NetStandardTargetVersion>netstandard2.0</NetStandardTargetVersion>
-    <NetCoreTargetVersion>netcoreapp2.1</NetCoreTargetVersion>
-    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
+    <NetCoreTargetVersion>netcoreapp3.1</NetCoreTargetVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package Versions">
@@ -21,6 +20,12 @@
     <Dapper>2.0.30</Dapper>
     <DapperExtensionsDotnetCore>1.0.1</DapperExtensionsDotnetCore>
     <SystemDataSqlClient>4.8.0</SystemDataSqlClient>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test Versions">
+    <nunit>3.12.0</nunit>
+    <NUnit3TestAdapter>3.15.1</NUnit3TestAdapter>
+    <MicrosoftNETTestSdk>16.2.0</MicrosoftNETTestSdk>
   </PropertyGroup>
 
   <PropertyGroup Label="Package Test Versions">

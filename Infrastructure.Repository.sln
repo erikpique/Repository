@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{23F5122C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{55D5781E-FEAB-4631-9727-5536A496D59A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Repository.EFCore.Test", "test\Infrastructure.Repository.EFCore.Test\Infrastructure.Repository.EFCore.Test.csproj", "{C3B90BCD-60E2-409C-B465-40E59FA2D01B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{178FABF3-5E75-476D-BF22-AC094705BE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178FABF3-5E75-476D-BF22-AC094705BE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{178FABF3-5E75-476D-BF22-AC094705BE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B90BCD-60E2-409C-B465-40E59FA2D01B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B90BCD-60E2-409C-B465-40E59FA2D01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B90BCD-60E2-409C-B465-40E59FA2D01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B90BCD-60E2-409C-B465-40E59FA2D01B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{5F9765BA-45DF-4B0F-B5BA-5C7F6247846B} = {C2CFC38F-956D-4BB6-AFC6-1050C3CD7D00}
 		{27AD8F2A-43EF-4510-973E-FBF2B0AF5B98} = {C2CFC38F-956D-4BB6-AFC6-1050C3CD7D00}
 		{178FABF3-5E75-476D-BF22-AC094705BE40} = {C2CFC38F-956D-4BB6-AFC6-1050C3CD7D00}
+		{C3B90BCD-60E2-409C-B465-40E59FA2D01B} = {55D5781E-FEAB-4631-9727-5536A496D59A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5F641D11-4D11-4998-9F51-26EAFEF5142C}

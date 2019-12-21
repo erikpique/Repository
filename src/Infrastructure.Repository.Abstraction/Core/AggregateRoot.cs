@@ -8,13 +8,13 @@ namespace Infrastructure.Repository.Abstraction.Core
 
         public List<INotification> Notifications { get; private set; }
 
-        public void AddDomainEvent(INotification eventItem)
+        public void AddNotification(INotification eventItem)
         {
             Notifications = Notifications ?? new List<INotification>();
             Notifications.Add(eventItem);
         }
 
-        public void RemoveDomainEvent(INotification eventItem)
+        public void RemoveNotification(INotification eventItem)
         {
             Notifications?.Remove(eventItem);
         }
