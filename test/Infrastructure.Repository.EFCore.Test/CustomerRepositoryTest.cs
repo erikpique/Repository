@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Repository.Abstraction.Core;
 using Infrastructure.Repository.EFCore.Test.Contexts;
@@ -14,6 +15,7 @@ namespace Infrastructure.Repository.EFCore.Test
     {
         private ServiceProvider _serviceProvider;
         private const string CONNECTIONSTRING = "Data Source=localhost,3433;Initial Catalog=DbTest;Persist Security Info=True;User ID=sa;Password=Password1234!";
+        private const string PINGSQLSERVER = "Data Source=localhost,3433;User ID=sa;Password=Password1234!";
         private ISeed _seed;
 
         [OneTimeSetUp]
@@ -29,18 +31,30 @@ namespace Infrastructure.Repository.EFCore.Test
 
             _seed = _serviceProvider.GetRequiredService<IBeginSeed>()
                 .Configure(_serviceProvider)
+                .IsSqlReady(PINGSQLSERVER)
                 .CustomerSeed();
         }
 
         [TestCase("test1", 1)]
         [TestCase("test2", 2)]
         [TestCase("test3", 3)]
-        public async Task GetCustomer(string expected, int id)
+        public async Task GetCustomerById(string expected, int id)
         {
             var customer = await _serviceProvider.GetRequiredService<IRepositoryReadOnly<Customer, int>>()
                 .GetByIdAsync(id);
 
             Assert.AreEqual(expected, customer.Name);
+        }
+
+        [TestCase(2, 1)]
+        [TestCase(1, 2)]
+        [TestCase(0, 3)]
+        public async Task FindCustomerGreaterId(int expected, int id)
+        {
+            var customers = await _serviceProvider.GetRequiredService<IRepositoryReadOnly<Customer, int>>()
+                .FindAsync(c => c.Id > id);
+
+            Assert.AreEqual(expected, customers.Count());
         }
 
         [OneTimeTearDown]
