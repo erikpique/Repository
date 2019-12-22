@@ -17,23 +17,13 @@ namespace Infrastructure.Repository.EFCore.Test
 
         public IIsSqlReady Configure(ServiceProvider serviceProvider)
         {
-            if(serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-
-            _serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
             return this;
         }
 
         public ISeed CustomerSeed()
         {
-            if(_serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(_serviceProvider));
-            }
-
             var context = _serviceProvider.GetRequiredService<CustomerContext>();
 
             context.Database.EnsureCreated();
@@ -84,11 +74,11 @@ namespace Infrastructure.Repository.EFCore.Test
             return this;
         }
 
-        private IEnumerable<T> LoadJsonFileToObject<T>(string fileName)
+        private IEnumerable<T> LoadJsonFileToObject<T>(string path)
         {
-            using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}{fileName}.json"))
+            using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}{path}.json"))
             {
-                string json = reader.ReadToEnd();
+                var json = reader.ReadToEnd();
                 return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
             }
         }

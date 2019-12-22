@@ -14,8 +14,14 @@ namespace Infrastructure.Repository.EFCore.Test
     public class CustomerRepositoryTest
     {
         private ServiceProvider _serviceProvider;
-        private const string CONNECTIONSTRING = "Data Source=localhost,3433;Initial Catalog=DbTest;Persist Security Info=True;User ID=sa;Password=Password1234!";
-        private const string PINGSQLSERVER = "Data Source=localhost,3433;User ID=sa;Password=Password1234!";
+
+        private const string PORT = "3433";
+        private const string USER = "sa";
+        private const string PASSWORD = "Password1234!";
+
+        private string _connectionstring = $"Data Source=localhost,{PORT};Initial Catalog=DbTest;Persist Security Info=True;User ID={USER};Password={PASSWORD}";
+        private string _pingSqlServer = $"Data Source=localhost,{PORT};User ID={USER};Password={PASSWORD}";
+        
         private ISeed _seed;
 
         [OneTimeSetUp]
@@ -25,13 +31,13 @@ namespace Infrastructure.Repository.EFCore.Test
 
             services.AddTransient<IBeginSeed, SeedData>()
                 .AddTransient<IRepositoryReadOnly<Customer, int>, CustomerRepository>()
-                .AddDbContext<CustomerContext>(conf => conf.UseSqlServer(CONNECTIONSTRING));
+                .AddDbContext<CustomerContext>(conf => conf.UseSqlServer(_connectionstring));
 
             _serviceProvider = services.BuildServiceProvider();
 
             _seed = _serviceProvider.GetRequiredService<IBeginSeed>()
                 .Configure(_serviceProvider)
-                .IsSqlReady(PINGSQLSERVER)
+                .IsSqlReady(_pingSqlServer)
                 .CustomerSeed();
         }
 

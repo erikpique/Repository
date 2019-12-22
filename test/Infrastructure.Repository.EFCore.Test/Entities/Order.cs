@@ -9,5 +9,7 @@ namespace Infrastructure.Repository.EFCore.Test.Entities
         public string OrderName { get; set; }
 
         public Customer Customer { get; set; }
+
+        public Agent Agent { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace Infrastructure.Repository.EFCore.Test.Entities
         public string Name { get; set; }
 
         public IEnumerable<Order> Orders { get; set; }
+
+        public Agent Agent { get; set; }
     }
 }

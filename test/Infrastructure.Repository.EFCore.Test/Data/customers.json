@@ -3,42 +3,57 @@
     "Name": "test1",
     "Orders": [
       {
-        "OrderName": "Order1"
-      },
-      {
-        "OrderName": "Order2"
-      },
-      {
-        "OrderName": "Order3"
+        "OrderName": "Order1",
+        "Agent": {
+          "Id": "A007",
+          "AgentName": "Ramasundar",
+          "WorkingName": "Bangalore",
+          "Commission": 0.15,
+          "PhoneNo": "077-25814763",
+          "Country": "Bangalore"
+        }
       }
-    ]
+    ],
+    "Agent": {
+      "Id": "A007"
+    }
   },
   {
     "Name": "test2",
     "Orders": [
       {
-        "OrderName": "Order4"
-      },
-      {
-        "OrderName": "Order5"
-      },
-      {
-        "OrderName": "Order6"
+        "OrderName": "Order4",
+        "Agent": {
+          "Id": "A003",
+          "AgentName": "Alex",
+          "WorkingName": "London",
+          "Commission": 0.13,
+          "PhoneNo": "075-12458969",
+          "Country": "London"
+        }
       }
-    ]
+    ],
+    "Agent": {
+      "Id": "A003"
+    }
   },
   {
     "Name": "test3",
     "Orders": [
       {
-        "OrderName": "Order7"
-      },
-      {
-        "OrderName": "Order8"
-      },
-      {
-        "OrderName": "Order9"
+        "OrderName": "Order7",
+        "Agent": {
+          "Id": "A008",
+          "AgentName": "Alford",
+          "WorkingName": "New York",
+          "Commission": 0.12,
+          "PhoneNo": "044-25874365",
+          "Country": "New York"
+        }
       }
-    ]
+    ],
+    "Agent": {
+      "Id": "A008"
+    }
   }
 ]
