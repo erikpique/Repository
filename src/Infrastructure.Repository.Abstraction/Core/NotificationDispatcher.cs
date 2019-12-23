@@ -8,7 +8,7 @@ namespace Infrastructure.Repository.Abstraction.Core
     {
         private static readonly ConcurrentDictionary<Type, INotificationHandler<INotification>> _notifications = new ConcurrentDictionary<Type, INotificationHandler<INotification>>();
 
-        public async static Task DispatchAsync(INotification notification)
+        public static async Task DispatchAsync(INotification notification)
         {
             var constructedType = typeof(INotificationHandler<>).MakeGenericType(notification.GetType());
 

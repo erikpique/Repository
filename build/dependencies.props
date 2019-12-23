@@ -20,6 +20,7 @@
     <Dapper>2.0.30</Dapper>
     <DapperExtensionsDotnetCore>1.0.1</DapperExtensionsDotnetCore>
     <SystemDataSqlClient>4.8.0</SystemDataSqlClient>
+    <StyleCopAnalyzers>1.1.118</StyleCopAnalyzers>
   </PropertyGroup>
 
   <PropertyGroup Label="Test Versions">

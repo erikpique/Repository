@@ -29,7 +29,8 @@ namespace Infrastructure.Repository.Dapper
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FindAndPaginateAsync(Expression<Func<TEntity, bool>> predicate, 
+        public async Task<IEnumerable<TEntity>> FindAndPaginateAsync(
+            Expression<Func<TEntity, bool>> predicate, 
             int skip = 0, 
             int take = 50, 
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
@@ -43,7 +44,8 @@ namespace Infrastructure.Repository.Dapper
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate,
+        public async Task<IEnumerable<TEntity>> FindAsync(
+            Expression<Func<TEntity, bool>> predicate,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
             string includeProperties = "")
         {

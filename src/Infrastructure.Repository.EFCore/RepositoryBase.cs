@@ -10,7 +10,8 @@ namespace Infrastructure.Repository.EFCore
         where TEntity : AggregateRoot<TKey>
         where TContext : DbContext
     {
-        protected RepositoryBase(TContext context) : base(context)
+        protected RepositoryBase(TContext context)
+            : base(context)
         {
         }
 

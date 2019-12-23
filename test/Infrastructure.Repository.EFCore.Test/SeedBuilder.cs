@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Repository.EFCore.Test
 {
-    public class SeedData : IBeginSeed, IIsSqlReady, ISeed
+    public class SeedBuilder : ISeedBuilder, IIsSqlReady, ISeed
     {
         private ServiceProvider _serviceProvider;
         private const int MAXRETRY = 5;
@@ -84,7 +84,7 @@ namespace Infrastructure.Repository.EFCore.Test
         }
     }
 
-    public interface IBeginSeed
+    public interface ISeedBuilder
     {
         IIsSqlReady Configure(ServiceProvider serviceProvider);
     }

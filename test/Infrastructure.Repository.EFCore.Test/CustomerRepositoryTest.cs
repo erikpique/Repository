@@ -29,13 +29,13 @@ namespace Infrastructure.Repository.EFCore.Test
         {
             var services = new ServiceCollection();
 
-            services.AddTransient<IBeginSeed, SeedData>()
+            services.AddTransient<ISeedBuilder, SeedBuilder>()
                 .AddTransient<IRepositoryReadOnly<Customer, int>, CustomerRepository>()
                 .AddDbContext<CustomerContext>(conf => conf.UseSqlServer(_connectionstring));
 
             _serviceProvider = services.BuildServiceProvider();
 
-            _seed = _serviceProvider.GetRequiredService<IBeginSeed>()
+            _seed = _serviceProvider.GetRequiredService<ISeedBuilder>()
                 .Configure(_serviceProvider)
                 .IsSqlReady(_pingSqlServer)
                 .CustomerSeed();
