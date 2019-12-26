@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using DapperExtensions;
 using Infrastructure.Repository.Abstraction.Core;
 
 namespace Infrastructure.Repository.Dapper
@@ -8,33 +11,66 @@ namespace Infrastructure.Repository.Dapper
     public abstract class RepositoryBase<TEntity, TKey> : RepositoryReadOnlyBase<TEntity, TKey>, IRepository<TEntity, TKey>
         where TEntity : AggregateRoot<TKey>
     {
-        protected RepositoryBase(string connectionString) : base(connectionString)
+        protected RepositoryBase(string connectionString, IsolationLevel isolationLevel = IsolationLevel.Serializable, string transactionName = "")
+            : base(connectionString, isolationLevel, transactionName)
         {
         }
 
-        public Task AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                await connection.OpenAsync();
+
+                connection.Insert(entity, Transaction);
+            }
         }
 
-        public Task AddAsync(IEnumerable<TEntity> entities)
+        public async Task AddAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                await connection.OpenAsync();
+
+                connection.Insert(entities, Transaction);
+            }
         }
 
-        public Task CommitAsync()
+        public async Task<bool> CommitAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                //todo eventos
+                await Transaction.CommitAsync();
+            }
+            catch
+            {
+                await Transaction.RollbackAsync();
+
+                return false;
+            }
+
+            return true;
         }
 
-        public Task RemoveAsync(TEntity entity)
+        public async Task RemoveAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                await connection.OpenAsync();
+
+                connection.Delete(entity, Transaction);
+            }
         }
 
-        public Task RemoveAsync(IEnumerable<TEntity> entities)
+        public async Task RemoveAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                await connection.OpenAsync();
+
+                connection.Delete(entities, Transaction);
+            }
         }
     }
 }

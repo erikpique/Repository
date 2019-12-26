@@ -19,13 +19,15 @@ namespace Infrastructure.Repository.EFCore
 
         public async Task AddAsync(IEnumerable<TEntity> entities) => await Context.Set<TEntity>().AddRangeAsync(entities);
 
-        public async Task CommitAsync()
+        public async Task<bool> CommitAsync()
         {
             var entities = GetEntitiesWithNotifications();
 
             await DispatchNotifications(entities);
 
             await Context.SaveChangesAsync();
+
+            return true;
         }
 
         public Task RemoveAsync(TEntity entity)

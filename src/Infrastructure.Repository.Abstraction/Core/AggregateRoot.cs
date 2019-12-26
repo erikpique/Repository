@@ -10,7 +10,7 @@ namespace Infrastructure.Repository.Abstraction.Core
 
         public void AddNotification(INotification eventItem)
         {
-            Notifications = Notifications ?? new List<INotification>();
+            Notifications ??= new List<INotification>();
             Notifications.Add(eventItem);
         }
 

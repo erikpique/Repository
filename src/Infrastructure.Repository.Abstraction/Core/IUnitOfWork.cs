@@ -4,6 +4,6 @@ namespace Infrastructure.Repository.Abstraction.Core
 {
     public interface IUnitOfWork
     {
-        Task CommitAsync();
+        Task<bool> CommitAsync();
     }
 }
