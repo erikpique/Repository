@@ -2,10 +2,8 @@
 
 namespace Infrastructure.Repository.Abstraction.Core
 {
-    public abstract class AggregateRoot<TKey> : IEntity<TKey>
+    public abstract class AggregateRoot<TKey> : Entity<TKey>
     {
-        public TKey Id { get; set; }
-
         public List<INotification> Notifications { get; private set; }
 
         public void AddNotification(INotification eventItem)

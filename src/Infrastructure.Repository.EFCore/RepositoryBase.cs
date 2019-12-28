@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Repository.Abstraction.Core;
@@ -25,6 +26,8 @@ namespace Infrastructure.Repository.EFCore
 
             await DispatchNotifications(entities);
 
+            SetAudition();
+
             await Context.SaveChangesAsync();
 
             return true;
@@ -42,6 +45,26 @@ namespace Infrastructure.Repository.EFCore
             Context.Set<TEntity>().RemoveRange(entities);
 
             return Task.CompletedTask;
+        }
+
+        private void SetAudition()
+        {
+            var datetime = DateTime.UtcNow;
+
+            foreach (var entry in Context.ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedBy = string.Empty;
+                        entry.Entity.Created = datetime;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedBy = string.Empty;
+                        entry.Entity.LastModified = datetime;
+                        break;
+                }
+            }
         }
 
         private TEntity[] GetEntitiesWithNotifications() => Context.ChangeTracker.Entries<TEntity>()

@@ -3,7 +3,7 @@ using Infrastructure.Repository.Abstraction.Core;
 
 namespace Infrastructure.Repository.EFCore.Test.Entities
 {
-    public class Agent : IEntity<string>
+    public class Agent : Entity<string>
     {
         public string Id { get; set; }
 

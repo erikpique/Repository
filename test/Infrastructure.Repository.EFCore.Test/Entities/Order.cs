@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Repository.EFCore.Test.Entities
 {
-    public class Order : IEntity<int>
+    public class Order : Entity<int>
     {
         public int Id { get; set; }
 
