@@ -11,6 +11,8 @@ namespace Infrastructure.Repository.EFCore
         where TEntity : AggregateRoot<TKey>
         where TContext : DbContext
     {
+        private bool _disposed;
+
         protected RepositoryBase(TContext context)
             : base(context)
         {
@@ -45,6 +47,25 @@ namespace Infrastructure.Repository.EFCore
             Context.Set<TEntity>().RemoveRange(entities);
 
             return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Context.Dispose();
+                }
+
+                _disposed = true;
+            }
         }
 
         private void SetAudition()
