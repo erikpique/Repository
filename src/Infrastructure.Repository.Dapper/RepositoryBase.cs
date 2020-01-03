@@ -20,22 +20,18 @@ namespace Infrastructure.Repository.Dapper
 
         public async Task AddAsync(TEntity entity)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                connection.Insert(entity, Transaction);
-            }
+            connection.Insert(entity, Transaction);
         }
 
         public async Task AddAsync(IEnumerable<TEntity> entities)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                connection.Insert(entities, Transaction);
-            }
+            connection.Insert(entities, Transaction);
         }
 
         public async Task<bool> CommitAsync()
@@ -57,22 +53,18 @@ namespace Infrastructure.Repository.Dapper
 
         public async Task RemoveAsync(TEntity entity)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                connection.Delete(entity, Transaction);
-            }
+            connection.Delete(entity, Transaction);
         }
 
         public async Task RemoveAsync(IEnumerable<TEntity> entities)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                connection.Delete(entities, Transaction);
-            }
+            connection.Delete(entities, Transaction);
         }
 
         public void Dispose()

@@ -13,9 +13,6 @@ namespace Infrastructure.Repository.Dapper
     public abstract class RepositoryReadOnlyBase<TEntity, TKey> : IRepositoryReadOnly<TEntity, TKey>
         where TEntity : AggregateRoot<TKey>
     {
-        protected string ConnectionString { get; private set; }
-        protected SqlTransaction Transaction { get; private set; }
-
         protected RepositoryReadOnlyBase(string connectionString, IsolationLevel isolationLevel, string transactionName)
         {
             ConnectionString = connectionString;
@@ -24,14 +21,16 @@ namespace Infrastructure.Repository.Dapper
             Transaction = connection.BeginTransaction(isolationLevel, transactionName);
         }
 
+        protected string ConnectionString { get; private set; }
+
+        protected SqlTransaction Transaction { get; private set; }
+
         public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                return connection.Count<TEntity>(predicate, Transaction);
-            }
+            return connection.Count<TEntity>(predicate, Transaction);
         }
 
         public async Task<IEnumerable<TEntity>> FindAndPaginateAsync(
@@ -41,12 +40,10 @@ namespace Infrastructure.Repository.Dapper
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                return connection.GetPage<TEntity>(predicate, ConvertIOrderedQueryableToSort(orderBy), skip, take, Transaction);
-            }
+            return connection.GetPage<TEntity>(predicate, ConvertIOrderedQueryableToSort(orderBy), skip, take, Transaction);
         }
 
         public async Task<IEnumerable<TEntity>> FindAsync(
@@ -54,27 +51,23 @@ namespace Infrastructure.Repository.Dapper
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                return connection.GetList<TEntity>(predicate, ConvertIOrderedQueryableToSort(orderBy), Transaction);
-            }
+            return connection.GetList<TEntity>(predicate, ConvertIOrderedQueryableToSort(orderBy), Transaction);
         }
 
         public async Task<TEntity> GetByIdAsync(TKey id)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                await connection.OpenAsync();
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
 
-                return connection.Get<TEntity>(id, Transaction);
-            }
+            return connection.Get<TEntity>(id, Transaction);
         }
 
         private IList<ISort> ConvertIOrderedQueryableToSort(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> func)
         {
-            if(func != null)
+            if (func != null)
             {
                 var expression = Expression.Lambda<Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>>(Expression.Call(func.Method));
                 var operation = (BinaryExpression)expression.Body;

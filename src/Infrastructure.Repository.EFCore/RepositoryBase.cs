@@ -11,11 +11,14 @@ namespace Infrastructure.Repository.EFCore
         where TEntity : AggregateRoot<TKey>
         where TContext : DbContext
     {
+        private readonly IUserService _userService;
+
         private bool _disposed;
 
-        protected RepositoryBase(TContext context)
+        protected RepositoryBase(TContext context, IUserService userService)
             : base(context)
         {
+            _userService = userService;
         }
 
         public async Task AddAsync(TEntity entity) => await Context.Set<TEntity>().AddAsync(entity);
@@ -72,17 +75,27 @@ namespace Infrastructure.Repository.EFCore
         {
             var datetime = DateTime.UtcNow;
 
-            foreach (var entry in Context.ChangeTracker.Entries<AuditableEntity>())
+            foreach (var entry in Context.ChangeTracker.Entries<TEntity>())
             {
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = string.Empty;
+                        entry.Entity.CreatedBy = _userService.UserName;
                         entry.Entity.Created = datetime;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = string.Empty;
+                        entry.Entity.LastModifiedBy = _userService.UserName;
                         entry.Entity.LastModified = datetime;
+                        break;
+                    case EntityState.Deleted:
+                        if (entry is ISoftDeletable)
+                        {
+                            entry.Entity.LastModifiedBy = _userService.UserName;
+                            entry.Entity.LastModified = datetime;
+                            ((ISoftDeletable)entry.Entity).IsDeleted = true;
+                            entry.State = EntityState.Unchanged;
+                        }
+
                         break;
                 }
             }
