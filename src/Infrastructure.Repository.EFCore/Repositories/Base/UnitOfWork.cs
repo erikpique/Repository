@@ -76,6 +76,8 @@
                     case EntityState.Added:
                         ((AuditableEntity)entry.Entity).CreatedBy = _userService.UserName;
                         ((AuditableEntity)entry.Entity).Created = datetime;
+                        ((AuditableEntity)entry.Entity).LastModifiedBy = _userService.UserName;
+                        ((AuditableEntity)entry.Entity).LastModified = datetime;
                         break;
                     case EntityState.Modified:
                         ((AuditableEntity)entry.Entity).LastModifiedBy = _userService.UserName;

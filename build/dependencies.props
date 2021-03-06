@@ -19,5 +19,7 @@
     <xunit>2.4.1</xunit>
     <xunitanalyzers>0.10.0</xunitanalyzers>
     <MicrosoftNETTestSdk>16.2.0</MicrosoftNETTestSdk>
+    <MicrosoftAspNetCoreHttpAbstractions>2.2.0</MicrosoftAspNetCoreHttpAbstractions>
+    <MicrosoftAspNetCoreMvcTesting>3.1.8</MicrosoftAspNetCoreMvcTesting>
   </PropertyGroup>
 </Project>

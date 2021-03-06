@@ -6,13 +6,24 @@ services:
     environment:
       - SA_PASSWORD=P@ssw0rd!
       - ACCEPT_EULA=Y
+      - USER=sa
+    healthcheck:
+      test: /opt/mssql/bin/sqlcmd -U "${USER}" -P "${SA_PASSWORD}" -Q"SELECT 1"
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
     ports:
       - "5433:1433"
-    command: sqlcmd -U 'sa' -P $SA_PASSWORD -Q"RESTORE DATABASE AdventureWorks2017 FROM DISK='/Bak/AdventureWorks2017.bak';" & /opt/mssql/bin/sqlservr
+    command: /opt/mssql/bin/sqlcmd -U "${USER}" -P "${SA_PASSWORD}" -Q"RESTORE DATABASE AdventureWorks2017 FROM DISK='../Infrastructure.Repository.Shared.Test/Backup/AdventureWorks2017.bak';" & /opt/mssql/bin/sqlservr
   infrastructure.repository.efcore.test:
     image: ${DOCKER_REGISTRY-}infrastructurerepositoryefcoretest
     build:
       context: .
       dockerfile: test/Infrastructure.Repository.EFCore.Test/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings__SQLConnectionString=Server=db;Database=AdventureWorks2017;User ID=${USER};Password=${SA_PASSWORD}
     depends_on: 
       - db
