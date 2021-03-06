@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Repository.Abstraction.Core
+﻿namespace Infrastructure.Repository.Abstraction.Core
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public interface IUnitOfWork : IDisposable
     {
-        Task<bool> CommitAsync();
+        Task<int> CommitAsync(CancellationToken cancellationToken);
     }
 }

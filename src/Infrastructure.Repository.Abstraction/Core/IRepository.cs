@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Repository.Abstraction.Core
+﻿namespace Infrastructure.Repository.Abstraction.Core
 {
-    public interface IRepository<TEntity, TKey> : IRepositoryReadOnly<TEntity, TKey>, IUnitOfWork
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    public interface IRepository<TEntity, TKey> : IRepositoryReadOnly<TEntity, TKey>
         where TEntity : AggregateRoot<TKey>
     {
         Task AddAsync(TEntity entity);

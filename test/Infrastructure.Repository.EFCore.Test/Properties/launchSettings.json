@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Infrastructure.Repository.EFCore.Test": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Infrastructure.Repository.Abstraction.Core
+﻿namespace Infrastructure.Repository.Abstraction.Core
 {
+    using System;
+
     public abstract class Entity<TKey> : AuditableEntity, IEquatable<TKey>
     {
         public TKey Id { get; set; }

@@ -4,26 +4,31 @@
     <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
     <IsPackable>false</IsPackable>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="$(nunit)" />
-    <PackageReference Include="NUnit3TestAdapter" Version="$(NUnit3TestAdapter)" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="$(MicrosoftVisualStudioAzureContainersToolsTargets)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdk)" />
+    <PackageReference Include="xunit" Version="$(xunit)" />
+    <PackageReference Include="xunit.analyzers" Version="$(xunitanalyzers)" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Infrastructure.Repository.EFCore\Infrastructure.Repository.EFCore.csproj" />
+    <ProjectReference Include="..\Infrastructure.Repository.Shared.Test\Infrastructure.Repository.Shared.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\customers.json">
+    <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="Specs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Bak\AdventureWorks2017.bak">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="docker pull mcr.microsoft.com/mssql/server:2017-CU18-ubuntu-16.04 &amp;&amp; docker run --name sql-test-repository -e &quot;ACCEPT_EULA=Y&quot; -e &quot;SA_PASSWORD=Password1234!&quot; -p &quot;3433:1433&quot; -d mcr.microsoft.com/mssql/server:2017-CU18-ubuntu-16.04 || docker start sql-test-repository" />
-  </Target>
 
 </Project>

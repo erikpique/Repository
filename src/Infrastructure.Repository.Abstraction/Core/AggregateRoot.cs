@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Infrastructure.Repository.Abstraction.Core
+﻿namespace Infrastructure.Repository.Abstraction.Core
 {
-    public abstract class AggregateRoot<TKey> : Entity<TKey>
+    using System.Collections.Generic;
+    using MediatR;
+
+    public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot
     {
         public List<INotification> Notifications { get; private set; }
 
